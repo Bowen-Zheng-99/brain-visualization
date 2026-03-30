@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Visualization — Category Selectivity in Human VTC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+        }
+        header {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 1.8rem;
+            color: #f0f6fc;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1rem;
+            color: #8b949e;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .subject-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .subject-card:hover {
+            border-color: #58a6ff;
+        }
+        .subject-card h2 {
+            font-size: 1.3rem;
+            color: #f0f6fc;
+            margin-bottom: 0.5rem;
+        }
+        .subject-card p {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        .subject-card a {
+            display: inline-block;
+            background: #238636;
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .subject-card a:hover {
+            background: #2ea043;
+        }
+        .overlays-info {
+            margin-top: 2rem;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .overlays-info h3 {
+            color: #f0f6fc;
+            margin-bottom: 0.8rem;
+        }
+        .overlays-info ul {
+            list-style: none;
+            columns: 2;
+        }
+        .overlays-info li {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+        .overlays-info li::before {
+            content: "\2022";
+            color: #58a6ff;
+            margin-right: 0.5rem;
+        }
+        .tag {
+            display: inline-block;
+            background: #1f6feb33;
+            color: #58a6ff;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 0.3rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #484f58;
+            font-size: 0.85rem;
+            border-top: 1px solid #30363d;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Interactive Brain Visualizations</h1>
+        <p>Category selectivity in human ventral temporal cortex (NSD dataset). Each viewer shows fLoc t-values, correlations, and regression weights for face, body, scene, word, group, and food categories.</p>
+    </header>
+
+    <div class="container">
+        <div class="subject-grid">
+            <div class="subject-card">
+                <h2>Subject 1 <span class="tag">107k voxels</span></h2>
+                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <a href="subj1/index.html">Open Viewer</a>
+            </div>
+            <div class="subject-card">
+                <h2>Subject 2 <span class="tag">108k voxels</span></h2>
+                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <a href="subj2/index.html">Open Viewer</a>
+            </div>
+            <div class="subject-card">
+                <h2>Subject 5 <span class="tag">95k voxels</span></h2>
+                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <a href="subj5/index.html">Open Viewer</a>
+            </div>
+            <div class="subject-card">
+                <h2>Subject 7 <span class="tag">90k voxels</span></h2>
+                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <a href="subj7/index.html">Open Viewer</a>
+            </div>
+        </div>
+
+        <div class="overlays-info">
+            <h3>Available Overlays</h3>
+            <ul>
+                <li>R2_low_level (low-level feature model)</li>
+                <li>tval_Face (fLoc t-value)</li>
+                <li>tval_Body (fLoc t-value)</li>
+                <li>tval_Scene (fLoc t-value)</li>
+                <li>tval_Word (fLoc t-value)</li>
+                <li>corr_Face (raw correlation)</li>
+                <li>corr_Body (raw correlation)</li>
+                <li>corr_Scene (raw correlation)</li>
+                <li>corr_Word (raw correlation)</li>
+                <li>corr_Group (raw correlation)</li>
+                <li>corr_Food (raw correlation)</li>
+                <li>weight_Face (Lasso weight)</li>
+                <li>weight_Body (Lasso weight)</li>
+                <li>weight_Scene (Lasso weight)</li>
+                <li>weight_Word (Lasso weight)</li>
+                <li>weight_Group (Lasso weight)</li>
+                <li>weight_Food (Lasso weight)</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        Built with PyCortex | NSD Dataset | Kanwisher Lab
+    </footer>
+</body>
+</html>
