@@ -3,179 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brain Visualization — Category Selectivity in Human VTC</title>
+    <title>NSD Category Selectivity Visualization</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #0d1117;
-            color: #c9d1d9;
+            background: #f8f9fa;
+            color: #2c3e50;
             min-height: 100vh;
         }
         header {
-            background: #161b22;
-            border-bottom: 1px solid #30363d;
-            padding: 2rem 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 3rem 1.5rem;
             text-align: center;
         }
         header h1 {
-            font-size: 1.8rem;
-            color: #f0f6fc;
-            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
         }
         header p {
             font-size: 1rem;
-            color: #8b949e;
-            max-width: 700px;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
             margin: 0 auto;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .container {
-            max-width: 900px;
-            margin: 2rem auto;
+            max-width: 860px;
+            margin: -1.5rem auto 2rem;
             padding: 0 1.5rem;
         }
         .subject-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
         .subject-card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 10px;
             padding: 1.5rem;
-            transition: border-color 0.2s;
+            transition: box-shadow 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .subject-card:hover {
-            border-color: #58a6ff;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
         }
         .subject-card h2 {
-            font-size: 1.3rem;
-            color: #f0f6fc;
-            margin-bottom: 0.5rem;
-        }
-        .subject-card p {
-            color: #8b949e;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.4;
+            font-size: 1.15rem;
+            color: #1a1a2e;
+            font-weight: 600;
         }
         .subject-card a {
             display: inline-block;
-            background: #238636;
+            background: #0f3460;
             color: #fff;
-            padding: 0.5rem 1.2rem;
+            padding: 0.45rem 1.1rem;
             border-radius: 6px;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: background 0.2s;
+            white-space: nowrap;
         }
         .subject-card a:hover {
-            background: #2ea043;
+            background: #1a4f8a;
         }
-        .overlays-info {
-            margin-top: 2rem;
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 1.5rem;
+        .overlays-section {
+            margin-top: 1.5rem;
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
         }
-        .overlays-info h3 {
-            color: #f0f6fc;
-            margin-bottom: 0.8rem;
+        .overlays-section h3 {
+            font-size: 1.05rem;
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
-        .overlays-info ul {
-            list-style: none;
-            columns: 2;
+        .overlay-group {
+            margin-bottom: 1rem;
         }
-        .overlays-info li {
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
-            color: #8b949e;
+        .overlay-group:last-child {
+            margin-bottom: 0;
         }
-        .overlays-info li::before {
-            content: "\2022";
-            color: #58a6ff;
-            margin-right: 0.5rem;
+        .overlay-group-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6c757d;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
         }
-        .tag {
+        .overlay-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .overlay-tag {
             display: inline-block;
-            background: #1f6feb33;
-            color: #58a6ff;
-            padding: 0.15rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin-left: 0.3rem;
+            background: #f0f2f5;
+            color: #495057;
+            padding: 0.25rem 0.65rem;
+            border-radius: 5px;
+            font-size: 0.82rem;
         }
         footer {
             text-align: center;
             padding: 2rem;
-            color: #484f58;
-            font-size: 0.85rem;
-            border-top: 1px solid #30363d;
-            margin-top: 3rem;
+            color: #adb5bd;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+        @media (max-width: 640px) {
+            .subject-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Interactive Brain Visualizations</h1>
-        <p>Category selectivity in human ventral temporal cortex (NSD dataset). Each viewer shows fLoc t-values, correlations, and regression weights for face, body, scene, word, group, and food categories.</p>
+        <h1>NSD Category Selectivity Visualization</h1>
+        <p>Interactive whole-brain maps of category selectivity across NSD subjects, rendered with PyCortex.</p>
     </header>
 
     <div class="container">
         <div class="subject-grid">
             <div class="subject-card">
-                <h2>Subject 1 <span class="tag">107k voxels</span></h2>
-                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <h2>Subject 1</h2>
                 <a href="subj1/index.html">Open Viewer</a>
             </div>
             <div class="subject-card">
-                <h2>Subject 2 <span class="tag">108k voxels</span></h2>
-                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <h2>Subject 2</h2>
                 <a href="subj2/index.html">Open Viewer</a>
             </div>
             <div class="subject-card">
-                <h2>Subject 5 <span class="tag">95k voxels</span></h2>
-                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <h2>Subject 5</h2>
                 <a href="subj5/index.html">Open Viewer</a>
             </div>
             <div class="subject-card">
-                <h2>Subject 7 <span class="tag">90k voxels</span></h2>
-                <p>Interactive 3D brain viewer with 17 overlays. Toggle between t-values, correlations, and weights for all categories.</p>
+                <h2>Subject 7</h2>
                 <a href="subj7/index.html">Open Viewer</a>
             </div>
         </div>
 
-        <div class="overlays-info">
+        <div class="overlays-section">
             <h3>Available Overlays</h3>
-            <ul>
-                <li>R2_low_level (low-level feature model)</li>
-                <li>tval_Face (fLoc t-value)</li>
-                <li>tval_Body (fLoc t-value)</li>
-                <li>tval_Scene (fLoc t-value)</li>
-                <li>tval_Word (fLoc t-value)</li>
-                <li>corr_Face (raw correlation)</li>
-                <li>corr_Body (raw correlation)</li>
-                <li>corr_Scene (raw correlation)</li>
-                <li>corr_Word (raw correlation)</li>
-                <li>corr_Group (raw correlation)</li>
-                <li>corr_Food (raw correlation)</li>
-                <li>weight_Face (Lasso weight)</li>
-                <li>weight_Body (Lasso weight)</li>
-                <li>weight_Scene (Lasso weight)</li>
-                <li>weight_Word (Lasso weight)</li>
-                <li>weight_Group (Lasso weight)</li>
-                <li>weight_Food (Lasso weight)</li>
-            </ul>
+
+            <div class="overlay-group">
+                <div class="overlay-group-title">Model fit</div>
+                <div class="overlay-tags">
+                    <span class="overlay-tag">R2_low_level</span>
+                </div>
+            </div>
+
+            <div class="overlay-group">
+                <div class="overlay-group-title">fLoc t-values</div>
+                <div class="overlay-tags">
+                    <span class="overlay-tag">tval_Face</span>
+                    <span class="overlay-tag">tval_Body</span>
+                    <span class="overlay-tag">tval_Scene</span>
+                    <span class="overlay-tag">tval_Word</span>
+                </div>
+            </div>
+
+            <div class="overlay-group">
+                <div class="overlay-group-title">Correlation</div>
+                <div class="overlay-tags">
+                    <span class="overlay-tag">corr_Face</span>
+                    <span class="overlay-tag">corr_Body</span>
+                    <span class="overlay-tag">corr_Scene</span>
+                    <span class="overlay-tag">corr_Word</span>
+                    <span class="overlay-tag">corr_Group</span>
+                    <span class="overlay-tag">corr_Food</span>
+                </div>
+            </div>
+
+            <div class="overlay-group">
+                <div class="overlay-group-title">OLS weights</div>
+                <div class="overlay-tags">
+                    <span class="overlay-tag">weight_Face</span>
+                    <span class="overlay-tag">weight_Body</span>
+                    <span class="overlay-tag">weight_Scene</span>
+                    <span class="overlay-tag">weight_Word</span>
+                    <span class="overlay-tag">weight_Group</span>
+                    <span class="overlay-tag">weight_Food</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
-        Built with PyCortex | NSD Dataset | Kanwisher Lab
+        PyCortex &middot; Natural Scenes Dataset &middot; Kanwisher Lab
     </footer>
 </body>
 </html>
