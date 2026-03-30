@@ -100,7 +100,13 @@
             letter-spacing: 0.05em;
             color: #6c757d;
             font-weight: 600;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.2rem;
+        }
+        .overlay-desc {
+            font-size: 0.84rem;
+            color: #868e96;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
         }
         .overlay-tags {
             display: flex;
@@ -158,6 +164,7 @@
 
             <div class="overlay-group">
                 <div class="overlay-group-title">Model fit</div>
+                <div class="overlay-desc">R&sup2; of a model predicting voxel responses from low-level visual features alone.</div>
                 <div class="overlay-tags">
                     <span class="overlay-tag">R2_low_level</span>
                 </div>
@@ -165,6 +172,7 @@
 
             <div class="overlay-group">
                 <div class="overlay-group-title">fLoc t-values</div>
+                <div class="overlay-desc">Category-selective contrast maps from NSD (category vs. all others).</div>
                 <div class="overlay-tags">
                     <span class="overlay-tag">tval_Face</span>
                     <span class="overlay-tag">tval_Body</span>
@@ -175,6 +183,7 @@
 
             <div class="overlay-group">
                 <div class="overlay-group-title">Correlation</div>
+                <div class="overlay-desc">Pearson correlation between human category saliency ratings and voxel responses.</div>
                 <div class="overlay-tags">
                     <span class="overlay-tag">corr_Face</span>
                     <span class="overlay-tag">corr_Body</span>
@@ -186,7 +195,8 @@
             </div>
 
             <div class="overlay-group">
-                <div class="overlay-group-title">OLS weights (controlling low-level features)</div>
+                <div class="overlay-group-title">OLS weights</div>
+                <div class="overlay-desc">Regression weight of each category saliency rating on voxel responses, after controlling for low-level visual features.</div>
                 <div class="overlay-tags">
                     <span class="overlay-tag">weight_Face</span>
                     <span class="overlay-tag">weight_Body</span>
